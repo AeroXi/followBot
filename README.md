@@ -4,3 +4,8 @@
 npm install
 node index.js
 ```
+需要填写两个配置文件，可参考.example例子
+watch_address.js 里填写要监听的地址
+.env 填写钱包地址（public key），私钥，alchemy或其他节点服务的地址
+其中bark是我使用的手机通知服务，ios可以在app store下载，会给一个调用url填入
+如果没有ios可以把bark函数注释掉或添加其他通知服务
