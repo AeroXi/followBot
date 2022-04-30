@@ -105,3 +105,4 @@ dist
 
 .tmp
 watch_address.js
+.DS_Store
