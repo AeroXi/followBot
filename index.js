@@ -28,8 +28,7 @@ function handleInput(input, whale) {
   if (input.includes(whale.slice(2))) {
     // 替换成bot地址
     return input.replace(whale.slice(2), PUBLIC_KEY.slice(2))
-  }
-  else {
+  } else {
     return input
   }
 }
@@ -38,14 +37,19 @@ async function mintNFT(contractAddress, inputData, value) {
   const nonce = await web3.eth.getTransactionCount(PUBLIC_KEY, "latest") //get latest nonce
 
   //the transaction
-  const tx = {
+  let tx = {
     from: PUBLIC_KEY,
     to: contractAddress,
     nonce: nonce,
-    gas: 500000,
-    // 'maxPriorityFeePerGas': 1999999987,
     value: value,
     input: inputData,
+  }
+
+  // 计算gas和避开失败的交易
+  try {
+    tx.gas = await web3.eth.estimateGas(tx)
+  } catch (error) {
+    console.log(error)
   }
 
   const signPromise = web3.eth.accounts.signTransaction(tx, PRIVATE_KEY)
@@ -105,4 +109,3 @@ const doSomethingWithTxn = (txn) => {
 
 // Open the websocket and listen for events!
 web3.eth.subscribe("logs", filter).on("data", doSomethingWithTxn)
-
