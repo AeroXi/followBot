@@ -48,11 +48,7 @@ async function mintNFT(contractAddress, inputData, value) {
   }
 
   // 计算gas和避开失败的交易
-  try {
-    tx.gas = await web3.eth.estimateGas(tx)
-  } catch (error) {
-    console.log(error)
-  }
+  tx.gas = await web3.eth.estimateGas(tx)
 
   const signPromise = web3.eth.accounts.signTransaction(tx, PRIVATE_KEY)
   signPromise
