@@ -11,9 +11,11 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY
 const BARK_URL = process.env.BARK_URL
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3")
 const web3 = createAlchemyWeb3(API_URL)
+console.log("初始化成功")
 const BN = web3.utils.BN
 let contractHistory = []
-let maxPriceWei = web3.utils.toWei("0.01", "ether")
+const maxPrice = "0.01" // 监听的价格上限 ether
+let maxPriceWei = web3.utils.toWei(maxPrice, "ether")
 maxPriceWei = web3.utils.toBN(maxPriceWei)
 
 async function bark(title, message) {
